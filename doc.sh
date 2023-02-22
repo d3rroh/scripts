@@ -83,7 +83,7 @@ paste  <(echo "$COL1") <(echo "$COL3") -d' '|column -t
 echo -e "\n\nPanel Installed"
 echo -e "$D$D"
 #--------Check for panel installed--------#
-detect_cp() {
+OBdetect_cp() {
     CP_VERSION="Unknown"
     SOFTACULOUS=0
     if [ -d "/usr/local/cwp" ]; then
@@ -115,59 +115,83 @@ detect_cp
 echo -e "\n\nWebserver Status"
 echo -e "$D$D"
 
-if systemctl is-active --quiet httpd; then
-  echo "Apache is running"
+if ! command -v httpd &> /dev/null; then
+  echo "Apache is not installed"
+elif systemctl is-active --quiet httpd; then
+  echo "Apache is installed and running"
 else
-  echo "Apache is not running"
+  echo "Apache is installed not running"
 fi
 
-if systemctl is-active --quiet lscpd; then
-  echo "Litespeed is running"
+if ! command -v lscpd &> /dev/null; then
+  echo "LiteSpeed is not installed"
+elif systemctl is-active --quiet lscpd; then
+  echo "Litespeed is installed and running"
 else
-  echo "Litespeed is not running"
+  echo "Litespeed is installed and not running"
 fi
 
-if systemctl is-active --quiet nginx; then
-  echo "Nginx is running"
+if ! command -v nginx &> /dev/null; then
+  echo "Nginx is not installed"
+elif systemctl is-active --quiet nginx; then
+  echo "Nginx is installed and running"
 else
-  echo "Nginx is not running"
+  echo "Nginx is installed not running"
 fi
 
 #------MYSQL STATUS----#
-echo -e "\nTop 5 Database Status"
+echo -e "\nDatabase Status"
 echo -e "$D$D"
 
-if systemctl is-active --quiet mysqld; then
-  echo "mysqld is running"
+if ! command -v mysqld &> /dev/null; then
+  echo "Mysql is not installed"
+elif systemctl is-active --quiet mysqld; then
+  echo "Mysqld is installed and running"
 else
-  echo "mysqld is not running"
+  echo "Mysqld is installed and not running"
 fi
 
-if systemctl is-active --quiet mongod; then
-  echo "MongoDB is running"
+if ! command -v psql &> /dev/null; then
+  echo "PostgreSQL is not installed"
+elif systemctl is-active --quiet postgresql; then
+  echo "PostgreSQL is installed and running"
 else
-  echo "MongoDB is not running"
+  echo "PostgreSQL is installed and not running"
+fi
+
+if ! command -v mongod &> /dev/null; then
+  echo "MongoDB is not installed"
+elif systemctl is-active --quiet mongod; then
+  echo "MongoDB is installed and  running"
+else
+  echo "MongoDB is installed not running"
 fi
 
 #--------Exim Status--------#
 echo -e "\n\nEXim and Postfix Status(Mails)"
 echo -e "$D$D"
-if systemctl is-active --quiet exim; then
-  echo "Exim is running"
+if ! command -v exim &> /dev/null; then
+  echo "Exim is not installed"
+elif systemctl is-active --quiet exim; then
+  echo "Exim is installed and running"
 else
-  echo "Exim is not running"
+  echo "Exim is installed and not running"
 fi
 
-if systemctl is-active --quiet postfix; then
+if ! command -v postfix &> /dev/null; then
+  echo "Postfix is not installed"
+elif systemctl is-active --quiet postfix; then
   echo "postfix is running"
 else
   echo "postfix is not running"
 fi
 
-if systemctl is-active --quiet dovecot; then
-  echo "dovecot is running"
+if ! command -v dovecot &> /dev/null; then
+  echo "Dovecot is not installed"
+elif systemctl is-active --quiet dovecot; then
+  echo "Dovecot is installed and is running"
 else
-  echo "dovecot is not running"
+  echo "Dovecot is installed and not running"
 fi
 
 # Check the status of Exim

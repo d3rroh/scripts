@@ -78,7 +78,6 @@ for i in $(echo "$COL2"); do
 }
 done
 COL3=$(echo "$COL3"|sort -k1n)
-paste  <(echo "$COL1") <(echo "$COL3") -d' '|column -t
 
 echo -e "\n\nPanel Installed"
 echo -e "$D$D"

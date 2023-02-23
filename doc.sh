@@ -83,7 +83,7 @@ paste  <(echo "$COL1") <(echo "$COL3") -d' '|column -t
 echo -e "\n\nPanel Installed"
 echo -e "$D$D"
 #--------Check for panel installed--------#
-OBdetect_cp() {
+detect_cp() {
     CP_VERSION="Unknown"
     SOFTACULOUS=0
     if [ -d "/usr/local/cwp" ]; then
